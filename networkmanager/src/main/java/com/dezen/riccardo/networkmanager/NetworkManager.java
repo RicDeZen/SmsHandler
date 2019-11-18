@@ -9,6 +9,7 @@ import com.dezen.riccardo.smshandler.SMSManager;
 import com.dezen.riccardo.smshandler.SMSMessage;
 import com.dezen.riccardo.smshandler.SMSPeer;
 
+//CODE-REVIEW DE ZEN
 /**
  * @author Niccolò Turcato. Invitation sending and receiving. Switch actions on Message received.
  * @author Riccardo De Zen. User management and synchronization. Enumeration to define actions.

@@ -1,5 +1,6 @@
 package com.dezen.riccardo.smshandler;
 
+//CODE-REVIEW DE ZEN
 /**
  * @author Riccardo De Zen based on decisions of whole class.
  * @param <D> The type of data this message contains.

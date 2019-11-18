@@ -26,6 +26,7 @@ import com.dezen.riccardo.smshandler.SMSPeer;
 
 import java.util.ArrayList;
 
+////CODE-REVIEW DE ZEN
 /**
  * @author Niccolò Turcato. [...]
  * @author Riccardo De Zen. Fixed user list. Added interface callbacks. Fixed Permission-related

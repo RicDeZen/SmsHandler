@@ -1,5 +1,6 @@
 package com.dezen.riccardo.smshandler;
 
+//CODE-REVIEW DE ZEN
 /**
  * Abstract class defining the standard behaviour for a Message based communication handler.
  * @author Riccardo De Zen based on decisions of whole class. Model proposed by Marco Cognolato and Luca Crema

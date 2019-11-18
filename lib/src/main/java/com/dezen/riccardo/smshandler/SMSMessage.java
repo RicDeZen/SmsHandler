@@ -2,7 +2,7 @@ package com.dezen.riccardo.smshandler;
 
 import androidx.annotation.NonNull;
 
-
+//CODE-REVIEW DE ZEN
 /**
  * Class implementing Message to represent an SMS-type message.
  * @author Riccardo De Zen based on decisions of whole class.

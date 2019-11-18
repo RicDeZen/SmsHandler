@@ -2,6 +2,7 @@ package com.dezen.riccardo.networkmanager;
 
 import androidx.annotation.Nullable;
 
+//CODE-REVIEW DE ZEN
 /**
  * String key and value implementation for Resource interface.
  * @author Riccardo De Zen.

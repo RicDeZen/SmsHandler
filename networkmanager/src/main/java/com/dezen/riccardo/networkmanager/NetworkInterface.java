@@ -3,6 +3,7 @@ package com.dezen.riccardo.networkmanager;
 import com.dezen.riccardo.smshandler.Message;
 import com.dezen.riccardo.smshandler.Peer;
 
+//CODE-REVIEW DE ZEN
 /**
  * Possible interface for Network Dictionary sharing. By default this interface defines only read
  * behaviour.

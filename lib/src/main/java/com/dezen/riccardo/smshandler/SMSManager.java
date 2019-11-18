@@ -2,6 +2,7 @@ package com.dezen.riccardo.smshandler;
 
 import android.content.Context;
 
+//CODE-REVIEW DE ZEN
 /**
  * Class to implement CommunicationHandler through use of SMS messages.
  * @author Riccardo De Zen based on decisions of whole class. Model proposed by Marco Cognolato and Luca Crema.

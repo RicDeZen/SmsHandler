@@ -2,6 +2,7 @@ package com.dezen.riccardo.networkmanager;
 
 import com.dezen.riccardo.smshandler.Message;
 
+//CODE-REVIEW DE ZEN
 /**
  * Listener Interface to use as callback to notify a class of events related to the Network.
  * @author Riccardo De Zen.

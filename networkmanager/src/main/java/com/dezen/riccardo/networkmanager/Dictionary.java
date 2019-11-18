@@ -1,6 +1,7 @@
 package com.dezen.riccardo.networkmanager;
 
 import com.dezen.riccardo.smshandler.Peer;
+//CODE-REVIEW DE ZEN
 //TODO add sizeP() and sizeR() methods. Update tests accordingly.
 /**
  * The Address of a Peer is used as it's key

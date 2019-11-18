@@ -1,5 +1,6 @@
 package com.dezen.riccardo.networkmanager;
 
+//CODE-REVIEW DE ZEN
 /**
  * Interface similar to Message, except it is meant to represent a resource in the peersVocabulary instead
  * of a message travelling through the network.

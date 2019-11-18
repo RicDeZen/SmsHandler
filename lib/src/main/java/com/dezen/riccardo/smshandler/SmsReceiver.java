@@ -19,6 +19,7 @@ import com.dezen.riccardo.smshandler.database.SmsEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+//CODE-REVIEW DE ZEN
 /**
  * Class meant to intercept SMSMessages coming from the Android system.
  * The filtering work on messages is voluntarily repeated between this Receiver and

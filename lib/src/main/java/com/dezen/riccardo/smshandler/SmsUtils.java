@@ -17,6 +17,7 @@ import com.dezen.riccardo.smshandler.database.SmsEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+//CODE-REVIEW DE ZEN
 /**
  * Utility class with experimental methods to help testing of some features.
  * @author Riccardo De Zen

@@ -1,6 +1,5 @@
 package com.dezen.riccardo.smshandler;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.provider.Telephony;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -21,6 +19,7 @@ import com.dezen.riccardo.smshandler.database.SmsEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+//CODE-REVIEW DE ZEN
 /**
  * Class meant to be the main body of the library. Handles sending and receiving SMS messages, also
  * handles notifying of sending and delivery confirms.
