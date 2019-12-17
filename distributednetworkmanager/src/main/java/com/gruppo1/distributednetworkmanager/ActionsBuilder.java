@@ -25,11 +25,10 @@ public interface ActionsBuilder<T, P extends Peer, R extends Resource, N extends
 
     T buildInvite(P peer);
 
-    T buildInviteAnsw(T request, boolean accept);
+    T buildInviteAnsw(T request, boolean accepted);
 
 
-
-    T[] buildStore(P peer, P peerToStore);
+    T[] buildStore(P peer, N node);
 
     T buildStore(P peer, R resource);
 
