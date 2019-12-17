@@ -21,6 +21,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            java {
+                exclude 'deprecated/DictionaryDao.java'
+                exclude 'deprecated/DictionaryDatabase.java'
+                exclude 'deprecated/DictionaryEntity.java'
+                exclude 'deprecated/Invitation.java'
+                exclude 'deprecated/NetworkVocabulary.java'
+                exclude 'deprecated/PeerItem.java'
+                exclude 'deprecated/Vocabulary.java'
+            }
+        }
+    }
+
 
 }
 

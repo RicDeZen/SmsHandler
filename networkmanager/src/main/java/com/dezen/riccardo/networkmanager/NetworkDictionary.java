@@ -275,6 +275,21 @@ public class NetworkDictionary implements Dictionary<SMSPeer, StringResource> {
         return INVALID_PEER;
     }
 
+
+    /**
+     * @return the number of contained peers
+     */
+    public int sizeP(){
+        return peers.size();
+    }
+
+    /**
+     * @return the number of contained resources
+     */
+    public int sizeR(){
+        return resources.size();
+    }
+
     /**
      * Class to interact with Peer Database e Resource Database
      * @author Giorgia Bortoletti

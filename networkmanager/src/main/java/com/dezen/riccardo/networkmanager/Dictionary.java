@@ -79,4 +79,15 @@ public interface Dictionary<P extends Peer, R extends Resource>{
      * @return true if resource exists, false otherwise.
      */
     boolean contains(R resource);
+
+    /**
+     * @return the number of contained peers
+     */
+    int sizeP();
+
+    /**
+     *
+     * @return the number of contained resources
+     */
+    int sizeR();
 }
