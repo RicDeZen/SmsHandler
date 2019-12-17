@@ -14,21 +14,32 @@ public interface ActionsBuilder<T, P extends Peer, R extends Resource, N extends
 
     T buildPing(P peer);
 
-    T buildPingAnsw(P peer);
+
+    /**
+     * Hypothesis: this type of responses (ANSW) is built starting from the request (mainly to retrieve the action ID/number)
+     *
+     * QUESTION: is it good?
+     */
+    T buildPingAnsw(T request);
+
 
     T buildInvite(P peer);
 
-    T buildInviteAnsw(P peer, boolean accept);
+    T buildInviteAnsw(T request, boolean accept);
+
+
 
     T buildStore(P peer, R resource);
 
-    T buildStoreAnsw(P peer);
+    T buildStoreAnsw(T request);
+
 
     T buildFindNode(P peer, N node);
 
-    T buildFindNodeAnsw(P peer, N[] nodes);
+    T buildFindNodeAnsw(T request, N[] nodes);
+
 
     T buildFindValue(P peer, N resourceNode);
 
-    T buildFindValueAnsw(P peer, R resource);
+    T buildFindValueAnsw(T request, R resource);
 }
