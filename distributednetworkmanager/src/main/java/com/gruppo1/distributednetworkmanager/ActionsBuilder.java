@@ -4,6 +4,7 @@ import com.dezen.riccardo.networkmanager.Resource;
 import com.dezen.riccardo.smshandler.Peer;
 
 /**
+ * @author Niccolo' Turcato
  *
  * @param <T> the real class that describes an Action of you custom network
  * @param <P> a real type of peer that can be contacted
