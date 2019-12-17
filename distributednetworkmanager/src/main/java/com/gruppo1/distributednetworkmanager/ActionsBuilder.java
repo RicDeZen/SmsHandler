@@ -40,7 +40,7 @@ public interface ActionsBuilder<T, P extends Peer, R extends Resource, N extends
 
     T buildFindNode(P peer, N node);
 
-    T[] buildFindNodeAnsw(T request, N[] nodes);
+    T[] buildFindNodeAnsw(T request, P[] peers);
 
 
 
