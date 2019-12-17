@@ -29,17 +29,25 @@ public interface ActionsBuilder<T, P extends Peer, R extends Resource, N extends
 
 
 
+    T[] buildStore(P peer, P peerToStore);
+
     T buildStore(P peer, R resource);
 
-    T buildStoreAnsw(T request);
+    T[] buildStoreAnsw(T request, P peer);
+
+    T buildStoreAnsw(T request, boolean confirmStore);
+
 
 
     T buildFindNode(P peer, N node);
 
-    T buildFindNodeAnsw(T request, N[] nodes);
+    T[] buildFindNodeAnsw(T request, N[] nodes);
+
 
 
     T buildFindValue(P peer, N resourceNode);
 
     T buildFindValueAnsw(T request, R resource);
+
+    T[] buildFindValueAnsw(T request, P peer);
 }
