@@ -82,7 +82,7 @@ public interface ActionsBuilder<T extends NodeActionStructure, P extends Peer, R
 
 
     /**
-     * @param peer he peer that will receive the built action command
+     * @param peer the peer that will receive the built action command
      * @param resourceNode the node representing the searched resource
      * @return an action built to execute the find value (of a resource) command to the peer
      */
