@@ -20,6 +20,23 @@ public class SMSPeer extends Peer<String> {
 
     private String address;
 
+    public static final SMSPeer INVALID_SMS_PEER = new SMSPeer(Token.invalidityToken);
+
+    private enum Token{
+        invalidityToken
+    }
+
+    /**
+     * This private constructor is used to create an invalid SMSPeer, it takes a dummy param Token so that it doesn't take the space for a default constructor
+     * @param t token that is only used to have a parameter for the constructor
+     */
+    private SMSPeer(Token t){
+        if (t.equals(Token.invalidityToken))
+            address = "";
+        else
+            throw new IllegalStateException();
+    }
+
     /**
      * @param address the address for the peer
      * @throws InvalidAddressException if the given address is invalid

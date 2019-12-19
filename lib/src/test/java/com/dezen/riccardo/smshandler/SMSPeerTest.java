@@ -10,8 +10,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Giorgia Bortoletti
@@ -119,6 +121,11 @@ public class SMSPeerTest {
         peer = new SMSPeer(EX_VALID_ADDRESS);
         SMSPeer other = new SMSPeer(EX_VALID_ADDRESS+"0");
         assertNotEquals(peer, other);
+    }
+
+    @Test
+    public void invalidSMSPeerIsValidNegative(){
+        assertFalse(SMSPeer.INVALID_SMS_PEER.isValid());
     }
 
 }
