@@ -297,7 +297,7 @@ public class NetworkDictionaryTest {
     }
 
     @Test
-    public void sizePPositiveTest() {
+    public void sizePeerPositiveTest() {
         assertEquals(sampleDictionary.sizeP(), 0);
         int count = 100;
         for (int i = 0; i < count; i++)
@@ -307,7 +307,7 @@ public class NetworkDictionaryTest {
 
 
     @Test
-    public void sizeRPositiveTest() {
+    public void sizeResourcePositiveTest() {
         assertEquals(sampleDictionary.sizeR(), 0);
         int count = 100;
         for (int i = 0; i < count; i++)
