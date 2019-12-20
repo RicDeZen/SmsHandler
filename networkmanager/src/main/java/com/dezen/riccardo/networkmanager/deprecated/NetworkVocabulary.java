@@ -28,14 +28,14 @@ class NetworkVocabulary implements Dictionary<SMSPeer, StringResource> {
     /**
      * @return the number of contained peers
      */
-    public int sizeP(){
+    public int countPeers(){
         return 0;
     }
 
     /**
      * @return the number of contained resources
      */
-    public int sizeR(){
+    public int countResources(){
         return 0;
     }
 

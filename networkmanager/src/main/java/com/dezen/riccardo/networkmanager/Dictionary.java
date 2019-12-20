@@ -83,11 +83,11 @@ public interface Dictionary<P extends Peer, R extends Resource>{
     /**
      * @return the number of contained peers
      */
-    int sizeP();
+    int countPeers();
 
     /**
      *
      * @return the number of contained resources
      */
-    int sizeR();
+    int countResources();
 }

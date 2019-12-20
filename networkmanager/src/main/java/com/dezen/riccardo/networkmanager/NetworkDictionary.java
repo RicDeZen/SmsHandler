@@ -279,14 +279,14 @@ public class NetworkDictionary implements Dictionary<SMSPeer, StringResource> {
     /**
      * @return the number of contained peers
      */
-    public int sizeP(){
+    public int countPeers(){
         return peers.size();
     }
 
     /**
      * @return the number of contained resources
      */
-    public int sizeR(){
+    public int countResources(){
         return resources.size();
     }
 
@@ -395,7 +395,7 @@ public class NetworkDictionary implements Dictionary<SMSPeer, StringResource> {
          * @return a list containing all Resources
          */
         private List<StringResource> getResources() {
-            List<StringResource> resourceList = new ArrayList<StringResource>();
+            List<StringResource> resourceList = new ArrayList<>();
             List<ResourceEntity> resourceEntities = dictionaryDatabase.access().getAllResources();
             for(ResourceEntity resource : resourceEntities)
                 resourceList.add(new StringResource(resource.key, resource.value));

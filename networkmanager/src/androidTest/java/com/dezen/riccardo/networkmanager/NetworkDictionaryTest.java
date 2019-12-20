@@ -298,20 +298,20 @@ public class NetworkDictionaryTest {
 
     @Test
     public void sizePeerPositiveTest() {
-        assertEquals(sampleDictionary.sizeP(), 0);
+        assertEquals(sampleDictionary.countPeers(), 0);
         int count = 100;
         for (int i = 0; i < count; i++)
             sampleDictionary.addPeer(new SMSPeer("+390425" + i));
-        assertEquals(sampleDictionary.sizeP(), count);
+        assertEquals(sampleDictionary.countPeers(), count);
     }
 
 
     @Test
     public void sizeResourcePositiveTest() {
-        assertEquals(sampleDictionary.sizeR(), 0);
+        assertEquals(sampleDictionary.countResources(), 0);
         int count = 100;
         for (int i = 0; i < count; i++)
             sampleDictionary.addResource(new StringResource("Resource n:" + i, "value: " + i));
-        assertEquals(sampleDictionary.sizeR(), count);
+        assertEquals(sampleDictionary.countResources(), count);
     }
 }
