@@ -23,9 +23,25 @@ public class SMSPeer extends Peer<String> {
     public static final int MIN_ADDRESS_LENGTH = 4;
 
     private String address;
-
     private static final Pattern GLOBAL_PHONE_NUMBER_PATTERN =
             Pattern.compile("[+]?[0-9.-]+");
+
+    public static final SMSPeer INVALID_SMS_PEER = new SMSPeer(Token.invalidityToken);
+
+    private enum Token{
+        invalidityToken
+    }
+
+    /**
+     * This private constructor is used to create an invalid SMSPeer, it takes a dummy param Token so that it doesn't take the space for a default constructor
+     * @param t token that is only used to have a parameter for the constructor
+     */
+    private SMSPeer(Token t){
+        if (t.equals(Token.invalidityToken))
+            address = "";
+        else
+            throw new IllegalStateException();
+    }
 
     /**
      * @param address the address for the peer

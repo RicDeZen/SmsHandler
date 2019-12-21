@@ -322,4 +322,9 @@ public class KadActionTest {
         assertEquals(expected1,KadAction.removePadding(string1));
     }
 
+    @Test
+    public void testInvalidKadAction(){
+        assertFalse(KadAction.INVALID_KAD_ACTION.isValid());
+    }
+
 }

@@ -31,9 +31,10 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     private static final int ID_LENGTH = 128;
     public static final int MIN_ID = 1;
     public static final int MAX_ID = 999;
-    private static final String RESOURCE_SEPARATOR="\r";
+    public static final String RESOURCE_SEPARATOR="\r";
     public static final int MIN_PARTS=1;
     public static final int MAX_PARTS = 999;
+    public static final KadAction INVALID_KAD_ACTION = new KadAction(Token.invalidityToken);
     private final String ACTION_CODE_NOT_FOUND_ERROR_MSG = "Expected ActionType as int number, found not parsable String instead";
     private final String PAYLOAD_TYPE_NOT_FOUND_ERROR_MSG="Expected PayloadType as int number, found not parsable String instead";
 
@@ -44,6 +45,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     private int totalParts;
     private PayloadType payloadType;
     private String payload;
+
 
 
     /**
@@ -149,6 +151,10 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
         }
     }
 
+    private enum Token{
+        invalidityToken
+    }
+
     /**
      *  Constructor of KadAction.
      *
@@ -198,6 +204,29 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
+     * Constructor that builds an invalid Action
+     * @param t token that indicates user's will to build an invalid action
+     */
+    private KadAction(Token t){
+        if(t.equals(Token.invalidityToken)){
+            this.actionPeer = SMSPeer.INVALID_SMS_PEER;
+            this.actionType = ActionType.INVALID;
+            this.operationId = 0;
+            this.currentPart = 0;
+            this.totalParts = 0;
+            this.payloadType = PayloadType.INVALID;
+            this.payload = "This action is invalid";
+        }
+    }
+
+    /**
+     * Prevents the user to use the default constructor
+     */
+    private KadAction(){
+
+    }
+
+    /**
      * Check if all the action's parameters are valid
      *
      * @return True if the defined action is valid and fits into a Message.
@@ -236,7 +265,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
                 return true;
             case NODE_ID:
                 BitSet bitset=BitSetUtils.decodeHexString(payload);
-                return bitset.size()==ID_LENGTH;
+                return bitset.size()<=ID_LENGTH;
             case PEER_ADDRESS:
                 return SMSPeer.isAddressValid(payload) == SMSPeer.PhoneNumberValidity.ADDRESS_VALID;
             case RESOURCE:
