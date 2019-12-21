@@ -37,6 +37,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     public static final KadAction INVALID_KAD_ACTION = new KadAction(Token.invalidityToken);
     private final String ACTION_CODE_NOT_FOUND_ERROR_MSG = "Expected ActionType as int number, found not parsable String instead";
     private final String PAYLOAD_TYPE_NOT_FOUND_ERROR_MSG="Expected PayloadType as int number, found not parsable String instead";
+    private final String INVALID_ONLY_EXPECTED = "This constructor should be used to build an invalid Kad Action only";
 
     private SMSPeer actionPeer;
     private ActionType actionType;
@@ -206,6 +207,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     /**
      * Constructor that builds an invalid Action
      * @param t token that indicates user's will to build an invalid action
+     * @throws IllegalStateException if token is not Token.invalidityToken
      */
     private KadAction(Token t){
         if(t.equals(Token.invalidityToken)){
@@ -217,6 +219,8 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
             this.payloadType = PayloadType.INVALID;
             this.payload = "This action is invalid";
         }
+        else
+            throw  new IllegalStateException(INVALID_ONLY_EXPECTED);
     }
 
     /**
