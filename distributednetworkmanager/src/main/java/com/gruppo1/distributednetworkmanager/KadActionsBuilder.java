@@ -15,11 +15,13 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
 
 
     private static int MAX_ACTION_ID;
+    private static int DEFAULT_PARTS = KadAction.MIN_PARTS;
     private static final String PAYLOAD_IGNORED = "0w0";
     private static final String ILLEGAL_MAX_ID_MSG = "Can't initialize Builder, the defined max ID isn't compatible with class KadActions";
     public static final String RESOURCE_SEPARATOR = KadAction.RESOURCE_SEPARATOR;
 
     public static final KadAction INVALID_ACTION = KadAction.INVALID_KAD_ACTION;
+
 
     /**
      * Constructor for this builder, defines a new max limit for IDs, min limit remains the one defined in KadAction
@@ -31,6 +33,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
             MAX_ACTION_ID = maxActionID;
         else
             throw new IllegalArgumentException(ILLEGAL_MAX_ID_MSG);
+
     }
 
     /**
@@ -55,7 +58,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     peer,
                     KadAction.ActionType.PING,
                     actionID,
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.IGNORED,
                     PAYLOAD_IGNORED
             );
@@ -72,7 +75,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     request.getPeer(),
                     KadAction.ActionType.PING_ANSWER,
                     request.getOperationId(),
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.IGNORED,
                     PAYLOAD_IGNORED
             );
@@ -91,7 +94,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     peer,
                     KadAction.ActionType.INVITE,
                     actionID,
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.IGNORED,
                     PAYLOAD_IGNORED
             );
@@ -110,7 +113,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     request.getPeer(),
                     KadAction.ActionType.INVITE_ANSWER,
                     request.getOperationId(),
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.BOOLEAN,
                     Boolean.toString(accepted)
             );
@@ -131,7 +134,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     peer,
                     KadAction.ActionType.STORE,
                     actionID,
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.NODE_ID,
                     node.getKey().toHex()
             );
@@ -151,7 +154,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     peer,
                     KadAction.ActionType.STORE,
                     actionID,
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.RESOURCE,
                     resource.getName() + RESOURCE_SEPARATOR + resource.getValue()
             );
@@ -193,7 +196,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     request.getPeer(),
                     KadAction.ActionType.STORE_ANSWER,
                     request.getOperationId(),
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.BOOLEAN,
                     Boolean.toString(confirmStore)
             );
@@ -213,7 +216,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                 peer,
                 KadAction.ActionType.FIND_NODE,
                 actionID,
-                1, 1,
+                DEFAULT_PARTS, DEFAULT_PARTS,
                 KadAction.PayloadType.NODE_ID,
                 node.getKey().toHex()
         );
@@ -256,7 +259,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                     peer,
                     KadAction.ActionType.FIND_VALUE,
                     actionID,
-                    1, 1,
+                    DEFAULT_PARTS, DEFAULT_PARTS,
                     KadAction.PayloadType.NODE_ID,
                     resourceNode.getKey().toHex()
             );
@@ -275,7 +278,7 @@ public class KadActionsBuilder implements ActionsBuilder<KadAction, SMSPeer, Str
                 request.getPeer(),
                 KadAction.ActionType.FIND_VALUE_ANSWER,
                 request.getOperationId(),
-                1, 1,
+                DEFAULT_PARTS, DEFAULT_PARTS,
                 KadAction.PayloadType.RESOURCE,
                 resource.getName() + RESOURCE_SEPARATOR + resource.getValue()
         );
