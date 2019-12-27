@@ -47,7 +47,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
 
 
     /**
-     * Enum for Action type
+     * Enum for Action type.
      */
     public enum ActionType {
         INVALID(-1),
@@ -75,29 +75,29 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
         }
 
         /**
-         * @return the numerical value for the instance
+         * @return The numerical value for the instance.
          */
         public int getCode() {
             return code;
         }
 
         /**
-         * @return true if this is a Request Action type, false if it is a Response type
+         * @return True if this is a Request Action type, false if it is a Response type.
          */
         public boolean isRequest() {
             return (code >= 0) && (code % 2 == 0);
         }
 
         /**
-         * @return true if this is a Request Action type, false if it is a Response type
+         * @return True if this is a Request Action type, false if it is a Response type.
          */
         public boolean isResponse() {
             return (code >= 0) && (code % 2 != 0);
         }
 
         /**
-         * @param code the code for the Action
-         * @return the ActionType with the corresponding code, or INVALID if an invalid code is passed.
+         * @param code The code for the Action.
+         * @return The ActionType with the corresponding code, or INVALID if an invalid code is passed.
          */
         public static ActionType getTypeFromVal(int code) {
             for (ActionType type : ActionType.values()) {
@@ -108,7 +108,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Enum for type of content attached to the Action, if any
+     * Enum for type of content attached to the Action, if any.
      */
     public enum PayloadType {
 
@@ -138,7 +138,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
         }
 
         /**
-         * @param code the code for the Action
+         * @param code the code for the Action.
          * @return the ActionType with the corresponding code, or invalid if an invalid code is passed.
          */
         public static PayloadType getTypeFromCode(int code) {
@@ -173,7 +173,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Constructor of KadDAction given SMSMessage.
+     * Constructor of KadDAction to a given SMSMessage.
      *
      * @param buildingMessage the given SMSMessage.
      * @throws IllegalArgumentException if the parameters are not valid.
@@ -198,7 +198,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Check if all the action's parameters are valid
+     * Check if all the action's parameters are valid.
      *
      * @return True if the defined action is valid and fits into a Message.
      */
@@ -253,7 +253,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Get a message with correct formatted action command ready to be sent
+     * Get a message with correct formatted action command ready to be sent.
      *
      * @return A Message containing the formatted action command ready to be sent.
      */
