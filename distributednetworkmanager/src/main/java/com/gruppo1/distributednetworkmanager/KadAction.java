@@ -84,14 +84,14 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
         }
 
         /**
-         * @return true if this is a Request Action type, false if it is a Response type or if it is INVALID
+         * @return true if this is a Request Action type, false otherwise
          */
         public boolean isRequest() {
             return (code >= 0) && (code % 2 == 0);
         }
 
         /**
-         * @return true if this is a Response Action type, false if it is a Request type or if it is INVALID
+         * @return true if this is a Response Action type, false otherwise
          */
         public boolean isResponse() {
             return (code >= 0) && (code % 2 != 0);
