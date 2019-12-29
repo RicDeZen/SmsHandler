@@ -25,6 +25,10 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     private final int TOTAL_PARTS_START_INDEX=9;
     private final int PAYLOAD_TYPE_START_INDEX=13;
     private final int PAYLOAD_START_INDEX=14;
+    private final static int ACTION_TYPE_MIN_CODE=-1;
+    private final static int ACTION_TYPE_MAX_CODE=9;
+    private final static int PAYLOAD_TYPE_MIN_CODE=-1;
+    private final static int PAYLOAD_TYPE_MAX_CODE=4;
     private static final char PARSING_CHARACTER='0';
     // The length of the Node_ID
     public static final int ID_LENGTH = 128;
@@ -64,8 +68,11 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
          * Constructor. Used only by enum.
          *
          * @param code the value for code field.
+         * @throws IllegalArgumentException if the code value is not in the correct range
          */
-        ActionType(int code) {
+        ActionType(int code) throws IllegalArgumentException{
+            if (code<ACTION_TYPE_MIN_CODE || code >ACTION_TYPE_MAX_CODE )
+                throw new IllegalArgumentException();
             this.code = code;
         }
 
@@ -84,7 +91,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
         }
 
         /**
-         * @return true if this is a Request Action type, false if it is a Response type
+         * @return true if this is a Response Action type, false if it is a Request type
          */
         public boolean isResponse() {
             return (code >= 0) && (code % 2 != 0);
@@ -120,8 +127,11 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
          * Constructor. Used only by enum.
          *
          * @param code the value for code field.
+         * @throws IllegalArgumentException if the code value is not between the correct range
          */
-        PayloadType(int code) {
+        PayloadType(int code) throws IllegalArgumentException {
+            if (code <PAYLOAD_TYPE_MIN_CODE || code> PAYLOAD_TYPE_MAX_CODE)
+                throw new IllegalArgumentException();
             this.code = code;
         }
 
@@ -174,7 +184,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
      * @param buildingMessage the given SMSMessage.
      * @throws IllegalArgumentException if the parameters are not valid.
      */
-    public KadAction(@NonNull SMSMessage buildingMessage) {
+    public KadAction(@NonNull SMSMessage buildingMessage) throws IllegalArgumentException {
         String messageBody = buildingMessage.getData();
         actionPeer=buildingMessage.getPeer();
         try{
