@@ -9,13 +9,12 @@ import com.dezen.riccardo.smshandler.exceptions.InvalidMessageException;
 
 import java.util.BitSet;
 
-/***
+/**
  * Class defining an Action travelling through a Kademlia Network.
  * Syntax for a Message is as follows:
  * [ACTION TYPE] [OPERATION ID] [PART K] [MAX PARTS] [PAYLOAD TYPE] [PAYLOAD]
  * @author  Pardeep Kumar, Riccardo De Zen
  */
-
 public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSMessage> {
     private final int OPERATION_ID_LENGTH=4;
     private final int CURRENT_PART_LENGTH=4;
@@ -36,15 +35,11 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     public static final int MAX_PARTS = 999;
     private final String ACTION_CODE_NOT_FOUND_ERROR_MSG = "Expected ActionType as int number, found not parsable String instead";
     private final String PAYLOAD_TYPE_NOT_FOUND_ERROR_MSG="Expected PayloadType as int number, found not parsable String instead";
-
     private SMSPeer actionPeer;
     private ActionType actionType;
-    private int operationId;
-    private int currentPart;
-    private int totalParts;
+    private int operationId,currentPart,totalParts;
     private PayloadType payloadType;
     private String payload;
-
 
     /**
      * Enum for Action type
@@ -75,7 +70,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
         }
 
         /**
-         * @return the numerical value for the instance
+         * @return the numerical value of the instance
          */
         public int getCode() {
             return code;
@@ -160,7 +155,8 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
      * @param payload The value of the payload.
      * @throws IllegalArgumentException if the parameters are not valid.
      */
-    public KadAction(@NonNull SMSPeer smsPeer, @NonNull ActionType actionType, int id, int part, int maxParts, @NonNull PayloadType payloadType, @NonNull String payload) {
+    public KadAction(@NonNull SMSPeer smsPeer, @NonNull ActionType actionType, int id, int part, int maxParts,
+                     @NonNull PayloadType payloadType, @NonNull String payload) throws IllegalArgumentException {
         this.actionPeer = smsPeer;
         this.actionType = actionType;
         this.operationId = id;
@@ -198,9 +194,9 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Check if all the action's parameters are valid.
+     * Checks if all the action's parameters are valid.
      *
-     * @return True if the defined action is valid and fits into a Message.
+     * @return True if the defined action is valid and fits into a Message, false otherwise.
      */
     @Override
     public boolean isValid() {
@@ -223,7 +219,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Check if payload's content type matches with payloadType passed as parameter.
+     * Checks if payload's content type matches with payloadType passed as parameter.
      *
      * @param payloadType The type of the payload.
      * @param payload The string which contains the value of the payload.
@@ -253,9 +249,9 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Get a message with correct formatted action command ready to be sent.
+     * Gets a message with correct formatted action command ready to be sent.
      *
-     * @return A Message containing the formatted action command ready to be sent.
+     * @return A SMSMessage containing the formatted action command ready to be sent.
      */
     @Override
     public SMSMessage toMessage() {
@@ -269,7 +265,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Get the action type from the enum.
+     * Gets the action type from the enum.
      *
      * @return The type of the action.
      */
@@ -278,65 +274,63 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Get the ID which identifies the action.
+     * Gets the ID which identifies the action.
      *
      * @return The operation ID.
      */
     public int getOperationId() {
         return operationId;
     }
+
     /**
-     * Get the k part of the current message.
+     * Gets the k part of the current message.
      *
      * @return The currentPart k  of the message.
      */
-
     public int getCurrentPart() {
         return currentPart;
     }
+
     /**
-     * Get the number of the total messages expected .
+     * Gets the number of the total messages expected .
      *
      * @return The total number of messages.
      */
-
     public int getTotalParts() {
         return totalParts;
     }
+
     /**
-     * Get the payload type from the enum.
+     * Gets the payload type from the enum.
      *
      * @return The type of the payload.
      */
-
     public PayloadType getPayloadType() {
         return payloadType;
     }
 
     /**
-     * Get the SMSPeer which is sending or receiving the action message.
+     * Gets the SMSPeer which is sending or receiving the action message.
      *
      * @return SMSPeer the peer sending or receiving the action message.
      */
-
     @Override
     public SMSPeer getPeer() {
         return actionPeer;
     }
 
     /**
-     * Get a string containing the value of the payload
+     * Gets a string containing the value of the payload
      *
      * @return A string containing the value of the payload.
      */
-
     @Override
     public String getPayload() {
         return payload;
     }
 
     /**
-     * Convert an integer to a string and adds to it the padding character.
+     * Converts an integer to a string and adds to it the padding character.
      *
      * @param intToPadd The integer that need the padding.
      * @param length The wanted length for the string.
@@ -352,14 +346,14 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     * Remove all the paddingCharacter from a String and convert it into an integer.
-     * The String has to contain only int.
+     * Removes all the paddingCharacter from a String and convert it into an integer.
+     * The String has to contain only int type values.
      *
      * @param string The String you want to remove the padding to.
      * @return String without padding.
      * @throws IllegalArgumentException if the String doesn't contain only integer.
      */
-    static int removePadding(String string)
+    static int removePadding(String string) throws IllegalArgumentException
     {
         String expectedString=string;
         int START_OF_THE_STRING=0;
