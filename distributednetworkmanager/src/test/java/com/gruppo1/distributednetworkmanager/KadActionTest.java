@@ -29,8 +29,8 @@ public class KadActionTest {
         assertEquals(expectedpart,kadAction.getCurrentPart());
         assertEquals(expectedmaxpart,kadAction.getTotalParts());
         assertEquals(expectedpayload,kadAction.getPayload());
-        assertEquals(KadAction.ActionType.getTypeFromVal(inviteCode),kadAction.getActionType());
-        assertEquals(KadAction.PayloadType.getTypeFromCode(peerAddressCode),kadAction.getPayloadType());
+        assertEquals(KadAction.ActionType.getActionTypeFromCode(inviteCode),kadAction.getActionType());
+        assertEquals(KadAction.PayloadType.getPayloadTypeFromCode(peerAddressCode),kadAction.getPayloadType());
         assertEquals(smsPeer,kadAction.getPeer());
 
     }
@@ -58,8 +58,8 @@ public class KadActionTest {
         assertEquals(expectedpart,kadAction.getCurrentPart());
         assertEquals(expectedmaxpart,kadAction.getTotalParts());
         assertEquals(expectedpayload,kadAction.getPayload());
-        assertEquals(KadAction.ActionType.getTypeFromVal(inviteCode),kadAction.getActionType());
-        assertEquals(KadAction.PayloadType.getTypeFromCode(peerAddressCode),kadAction.getPayloadType());
+        assertEquals(KadAction.ActionType.getActionTypeFromCode(inviteCode),kadAction.getActionType());
+        assertEquals(KadAction.PayloadType.getPayloadTypeFromCode(peerAddressCode),kadAction.getPayloadType());
         assertEquals(smsPeer,kadAction.getPeer());
     }
 
@@ -155,8 +155,8 @@ public class KadActionTest {
         assertFalse(KadAction.ActionType.FIND_VALUE.isResponse());
         assertFalse(KadAction.ActionType.FIND_VALUE_ANSWER.isRequest());
 
-        assertEquals(KadAction.PayloadType.INVALID,KadAction.PayloadType.getTypeFromCode(invalidCode));
-        assertEquals(KadAction.ActionType.INVALID, KadAction.ActionType.getTypeFromVal(invalidCode));
+        assertEquals(KadAction.PayloadType.INVALID,KadAction.PayloadType.getPayloadTypeFromCode(invalidCode));
+        assertEquals(KadAction.ActionType.INVALID, KadAction.ActionType.getActionTypeFromCode(invalidCode));
     }
 
     @Test(expected = IllegalArgumentException.class)

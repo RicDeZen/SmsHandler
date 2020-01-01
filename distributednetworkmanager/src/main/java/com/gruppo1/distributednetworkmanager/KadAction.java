@@ -13,35 +13,32 @@ import java.util.BitSet;
  * Class defining an Action travelling through a Kademlia Network.
  * Syntax for a Message is as follows:
  * [ACTION TYPE] [OPERATION ID] [PART K] [MAX PARTS] [PAYLOAD TYPE] [PAYLOAD]
- * @author  Pardeep Kumar, Riccardo De Zen
+ *
+ * @author Pardeep Kumar, Riccardo De Zen
  */
 public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSMessage> {
-    private final int OPERATION_ID_LENGTH=4;
-    private final int CURRENT_PART_LENGTH=4;
-    private final int TOTAL_PARTS_LENGTH=4;
-    private final int ACTION_TYPE_START_INDEX=0;
-    private final int OPERATION_ID_START_INDEX=1;
-    private final int CURRENT_PART_START_INDEX=5;
-    private final int TOTAL_PARTS_START_INDEX=9;
-    private final int PAYLOAD_TYPE_START_INDEX=13;
-    private final int PAYLOAD_START_INDEX=14;
-    private final static int ACTION_TYPE_MIN_CODE=-1;
-    private final static int ACTION_TYPE_MAX_CODE=9;
-    private final static int PAYLOAD_TYPE_MIN_CODE=-1;
-    private final static int PAYLOAD_TYPE_MAX_CODE=4;
-    private static final char PARSING_CHARACTER='0';
+    private final int OPERATION_ID_LENGTH = 4;
+    private final int CURRENT_PART_LENGTH = 4;
+    private final int TOTAL_PARTS_LENGTH = 4;
+    private final int ACTION_TYPE_START_INDEX = 0;
+    private final int OPERATION_ID_START_INDEX = 1;
+    private final int CURRENT_PART_START_INDEX = 5;
+    private final int TOTAL_PARTS_START_INDEX = 9;
+    private final int PAYLOAD_TYPE_START_INDEX = 13;
+    private final int PAYLOAD_START_INDEX = 14;
+    private static final char PARSING_CHARACTER = '0';
     // The length of the Node_ID
     public static final int ID_LENGTH = 128;
     public static final int MIN_ID = 1;
     public static final int MAX_ID = 999;
-    public static final String RESOURCE_SEPARATOR="\r";
-    public static final int MIN_PARTS=1;
+    public static final String RESOURCE_SEPARATOR = "\r";
+    public static final int MIN_PARTS = 1;
     public static final int MAX_PARTS = 999;
     private final String ACTION_CODE_NOT_FOUND_ERROR_MSG = "Expected ActionType as int number, found not parsable String instead";
-    private final String PAYLOAD_TYPE_NOT_FOUND_ERROR_MSG="Expected PayloadType as int number, found not parsable String instead";
+    private final String PAYLOAD_TYPE_NOT_FOUND_ERROR_MSG = "Expected PayloadType as int number, found not parsable String instead";
     private SMSPeer actionPeer;
     private ActionType actionType;
-    private int operationId,currentPart,totalParts;
+    private int operationId, currentPart, totalParts;
     private PayloadType payloadType;
     private String payload;
 
@@ -68,11 +65,8 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
          * Constructor. Used only by enum.
          *
          * @param code the value for code field.
-         * @throws IllegalArgumentException if the code value is not in the correct range
          */
-        ActionType(int code) throws IllegalArgumentException{
-            if (code<ACTION_TYPE_MIN_CODE || code >ACTION_TYPE_MAX_CODE )
-                throw new IllegalArgumentException();
+        ActionType(int code) {
             this.code = code;
         }
 
@@ -101,7 +95,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
          * @param code the code for the Action
          * @return the ActionType with the corresponding code, or INVALID if an invalid code is passed.
          */
-        public static ActionType getTypeFromVal(int code) {
+        public static ActionType getActionTypeFromCode(int code) {
             for (ActionType type : ActionType.values()) {
                 if (type.code == code) return type;
             }
@@ -127,11 +121,8 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
          * Constructor. Used only by enum.
          *
          * @param code the value for code field.
-         * @throws IllegalArgumentException if the code value is not between the correct range
          */
-        PayloadType(int code) throws IllegalArgumentException {
-            if (code <PAYLOAD_TYPE_MIN_CODE || code> PAYLOAD_TYPE_MAX_CODE)
-                throw new IllegalArgumentException();
+        PayloadType(int code) {
             this.code = code;
         }
 
@@ -146,7 +137,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
          * @param code the code for the Action
          * @return the ActionType with the corresponding code, or invalid if an invalid code is passed.
          */
-        public static PayloadType getTypeFromCode(int code) {
+        public static PayloadType getPayloadTypeFromCode(int code) {
             for (PayloadType type : PayloadType.values()) {
                 if (type.code == code) return type;
             }
@@ -155,20 +146,21 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     }
 
     /**
-     *  Constructor of KadAction.
+     * Constructor of KadAction.
      *
-     * @param actionType The type of the action.
-     * @param id The id of the message.
-     * @param part The number of the current message part.
-     * @param maxParts The number of the total messages.
+     * @param actionType  The type of the action.
+     * @param id          The id of the message.
+     * @param part        The number of the current message part.
+     * @param maxParts    The number of the total messages.
      * @param payloadType The type of the payload.
-     * @param payload The value of the payload.
+     * @param payload     The value of the payload.
      * @throws IllegalArgumentException if the parameters are not valid.
      */
     public KadAction(@NonNull SMSPeer smsPeer, @NonNull ActionType actionType, int id, int part, int maxParts,
                      @NonNull PayloadType payloadType, @NonNull String payload) throws IllegalArgumentException {
         this.actionPeer = smsPeer;
         this.actionType = actionType;
+
         this.operationId = id;
         this.currentPart = part;
         this.totalParts = maxParts;
@@ -186,21 +178,21 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
      */
     public KadAction(@NonNull SMSMessage buildingMessage) throws IllegalArgumentException {
         String messageBody = buildingMessage.getData();
-        actionPeer=buildingMessage.getPeer();
-        try{
-            actionType=ActionType.getTypeFromVal(Integer.parseInt(messageBody.substring(ACTION_TYPE_START_INDEX,OPERATION_ID_START_INDEX)));
+        actionPeer = buildingMessage.getPeer();
+        try {
+            actionType = ActionType.getActionTypeFromCode(Integer.parseInt(messageBody.substring(ACTION_TYPE_START_INDEX, OPERATION_ID_START_INDEX)));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e.getMessage() + "\n" + ACTION_CODE_NOT_FOUND_ERROR_MSG);
         }
-        operationId=removePadding(messageBody.substring(OPERATION_ID_START_INDEX,CURRENT_PART_START_INDEX));
-        currentPart=removePadding(messageBody.substring(CURRENT_PART_START_INDEX,TOTAL_PARTS_START_INDEX));
-        totalParts=removePadding(messageBody.substring(TOTAL_PARTS_START_INDEX,PAYLOAD_TYPE_START_INDEX));
-        try{
-            payloadType=PayloadType.getTypeFromCode(Integer.parseInt(messageBody.substring(PAYLOAD_TYPE_START_INDEX,PAYLOAD_START_INDEX)));
+        operationId = removePadding(messageBody.substring(OPERATION_ID_START_INDEX, CURRENT_PART_START_INDEX));
+        currentPart = removePadding(messageBody.substring(CURRENT_PART_START_INDEX, TOTAL_PARTS_START_INDEX));
+        totalParts = removePadding(messageBody.substring(TOTAL_PARTS_START_INDEX, PAYLOAD_TYPE_START_INDEX));
+        try {
+            payloadType = PayloadType.getPayloadTypeFromCode(Integer.parseInt(messageBody.substring(PAYLOAD_TYPE_START_INDEX, PAYLOAD_START_INDEX)));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e.getMessage() + "\n" + PAYLOAD_TYPE_NOT_FOUND_ERROR_MSG);
         }
-        payload=messageBody.substring(PAYLOAD_START_INDEX);
+        payload = messageBody.substring(PAYLOAD_START_INDEX);
     }
 
     /**
@@ -214,9 +206,9 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
             return false;
         if (this.payloadType.equals(PayloadType.INVALID))
             return false;
-        if (currentPart <MIN_PARTS || currentPart > totalParts || totalParts>MAX_PARTS )
+        if (currentPart < MIN_PARTS || currentPart > totalParts || totalParts > MAX_PARTS)
             return false;
-        if(operationId<MIN_ID || operationId>MAX_ID)
+        if (operationId < MIN_ID || operationId > MAX_ID)
             return false;
         if (!payloadMatchesType(payloadType, payload))
             return false;
@@ -232,7 +224,7 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
      * Checks if payload's content type matches with payloadType passed as parameter.
      *
      * @param payloadType The type of the payload.
-     * @param payload The string which contains the value of the payload.
+     * @param payload     The string which contains the value of the payload.
      * @return True if the payload string contains a value of the correct type,false otherwise.
      */
     public static boolean payloadMatchesType(PayloadType payloadType, String payload) {
@@ -241,15 +233,14 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
             case BOOLEAN:
                 return true;
             case NODE_ID:
-                BitSet bitset=BitSetUtils.decodeHexString(payload);
-                return bitset.size()==ID_LENGTH;
+                BitSet bitset = BitSetUtils.decodeHexString(payload);
+                return bitset.size() == ID_LENGTH;
             case PEER_ADDRESS:
                 return SMSPeer.isAddressValid(payload) == SMSPeer.PhoneNumberValidity.ADDRESS_VALID;
             case RESOURCE:
                 try {
                     return StringResource.parseString(payload, RESOURCE_SEPARATOR).isValid();
-                }
-                catch (IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     return false;
                 }
             default:
@@ -267,8 +258,8 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
     public SMSMessage toMessage() {
         StringBuilder body = new StringBuilder();
 
-        body.append(actionType.getCode()).append(addPadding(operationId,OPERATION_ID_LENGTH))
-                .append(addPadding(currentPart,CURRENT_PART_LENGTH)).append(addPadding(totalParts,TOTAL_PARTS_LENGTH))
+        body.append(actionType.getCode()).append(addPadding(operationId, OPERATION_ID_LENGTH))
+                .append(addPadding(currentPart, CURRENT_PART_LENGTH)).append(addPadding(totalParts, TOTAL_PARTS_LENGTH))
                 .append(payloadType.getCode()).append(payload);
 
         return new SMSMessage(actionPeer, body.toString());
@@ -341,16 +332,16 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
 
     /**
      * Converts an integer to a string and adds to it the padding character.
+     * If stringToPadd.length is grater or equals to @length than it only converts the intToPadd into a string
      *
      * @param intToPadd The integer that need the padding.
-     * @param length The wanted length for the string.
+     * @param length    The wanted length for the string.
      * @return String with the correct length.
      */
-    static String addPadding(int intToPadd,int length) {
-        String stringToPadd=Integer.toString(intToPadd);
-        while(stringToPadd.length()<length)
-        {
-            stringToPadd=PARSING_CHARACTER+stringToPadd;
+    static String addPadding(int intToPadd, int length) {
+        String stringToPadd = Integer.toString(intToPadd);
+        while (stringToPadd.length() < length) {
+            stringToPadd = PARSING_CHARACTER + stringToPadd;
         }
         return stringToPadd;
     }
@@ -363,19 +354,16 @@ public class KadAction implements DistributedNetworkAction<String, SMSPeer, SMSM
      * @return String without padding.
      * @throws IllegalArgumentException if the String doesn't contain only integer.
      */
-    static int removePadding(String string) throws IllegalArgumentException
-    {
-        String expectedString=string;
-        int START_OF_THE_STRING=0;
-        while (string.charAt(START_OF_THE_STRING)==PARSING_CHARACTER && START_OF_THE_STRING<expectedString.length())
-        {
+    static int removePadding(String string) throws IllegalArgumentException {
+        String expectedString = string;
+        int START_OF_THE_STRING = 0;
+        while (string.charAt(START_OF_THE_STRING) == PARSING_CHARACTER && START_OF_THE_STRING < expectedString.length()) {
             START_OF_THE_STRING++;
-            expectedString=string.substring(START_OF_THE_STRING);
+            expectedString = string.substring(START_OF_THE_STRING);
         }
         try {
             return Integer.parseInt(expectedString);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
 
